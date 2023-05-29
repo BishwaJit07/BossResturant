@@ -1,5 +1,54 @@
+import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/Authprovider";
+
 const FoodCard = ({ item }) => {
-  const { image, price, recipe, name } = item;
+  const { image, price, recipe, name,_id } = item;
+  const {user} = useContext(AuthContext);
+   const navigate = useNavigate();
+   const location = useLocation();
+   
+  const handleAddToCart = item=>{
+             console.log(item);
+             if(user&& user.email){
+              const cartItem ={menuItemId: _id,image, price,  name, email: user.email}
+                  fetch('http://localhost:5000/carts',{
+                    method:'POST',
+                    headers:{
+                      'content-type':'application/json'
+                    },
+                    body: JSON.stringify(cartItem)
+                  })
+                  .then(res=> res.json())
+                  .then(data=>{
+                    if(data.insertedID){
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Food added to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    }
+                  })
+             }
+             else{
+              Swal.fire({
+                title: 'Are you sure?',
+                
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Plz Login!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate('/login',{state: {from: location}})
+                }
+              })
+             }
+  }
   return (
     <div>
       <div className="card w-96 h-96 bg-slate-200 shadow-2xl my-4">
@@ -15,7 +64,7 @@ const FoodCard = ({ item }) => {
             <p>{recipe}</p>
           </div>
           <div className="card-actions">
-            <button className="btn btn-outline border-0 border-b-4 m-4 bg-slate-300  border-yellow-600">
+            <button onClick={()=>handleAddToCart(item)} className="btn btn-outline border-0 border-b-4 m-4 bg-slate-300  border-yellow-600">
               Add to card
             </button>
           </div>

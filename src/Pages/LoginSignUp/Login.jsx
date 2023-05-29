@@ -96,7 +96,10 @@ const Login = () => {
                 </label></div>
               </div>
               <div className="form-control mt-6">
-                <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
+                   
+                  {/* to do: make disable value disabled */}
+
+                <input disabled={false} className="btn btn-primary" type="submit" value="Login" />
                 <label className="label">
                   <Link to="/signup" className="label-text-alt link link-hover">Don't Have Account? SignUp</Link>
                 </label>
