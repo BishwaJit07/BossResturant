@@ -5,6 +5,7 @@ import {
 
 import DashBoard from "../LayOut/DashBoard";
 import Main from "../LayOut/Main";
+import AllUsers from "../Pages/DashBoard/Admin/AllUsers";
 import MyCart from "../Pages/DashBoard/MyCart";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/LoginSignUp/LOgin";
@@ -55,7 +56,11 @@ const router = createBrowserRouter([
       children:[
         {
           path: 'mycart',
-          element:<MyCart/>
+          element: <PrivateRoute><MyCart/></PrivateRoute> 
+        },
+        {
+          path: 'allusers',
+          element:<AllUsers/>
         }
       ]
     }

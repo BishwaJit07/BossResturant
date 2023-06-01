@@ -7,6 +7,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper"
 
+//  TODO - pagination here
+
 const OrdersItem = ({items}) => {
   const pagination = {
     clickable: true,
