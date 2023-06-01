@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/Authprovider";
 import { useContext } from "react";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const SignUP = () => {
   const navigate = useNavigate();
@@ -23,28 +24,44 @@ const SignUP = () => {
 
   const {createUser,updateUser}= useContext(AuthContext)
 
-  const onSubmit = (data) => {
-   createUser(data.email, data.pass, )
-   .then(result=>{
-    const loggedUser = result.user;
-    console.log(loggedUser);
-    updateUser(data.name,data.photoURL)
-    .then(()=>{
-               console.log('user profile updated');
-               reset();
-                
-               Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-              );
+  const onSubmit = data => {
+    createUser(data.email, data.pass)
+    .then(result => {
 
-              navigate('/');
-      })
-    .catch((error)=> console.log(error))
-   })
-  };
+        const loggedUser = result.user;
+        console.log(loggedUser);
 
+        updateUser(data.name, data.photoURL)
+            .then(() => {
+                const saveUser = { name: data.name, email: data.email }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            reset();
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'User created successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/');
+                        }
+                    })
+
+
+
+            })
+            .catch(error => console.log(error))
+    })
+};
    
 
   // const handleCreateUser = event =>{
@@ -160,13 +177,16 @@ const SignUP = () => {
             <div className="form-control mt-6">
               <input className="btn btn-primary" type="submit" value="SignUP" />
             </div>
+           
           </form>
+          <SocialLogin />
         </div>
 
         <div className="text-center lg:text-left">
           <img src={loginImg} alt="" />
         </div>
       </div>
+      
     </div>
     
     </>

@@ -8,6 +8,7 @@ import { AuthContext } from '../../Provider/Authprovider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../Shared/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -105,12 +106,15 @@ const Login = () => {
                 </label>
               </div>
             </form>
+            <SocialLogin/>
           </div>
 
           <div className="text-center lg:text-left">
             <img src={loginImg} alt="" />
           </div>
+          
         </div>
+        
       </div>
 
       </>

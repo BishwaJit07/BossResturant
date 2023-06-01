@@ -3,7 +3,9 @@ import { BsCart4 ,BsListUl} from "react-icons/bs";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { BsJournalBookmark } from "react-icons/bs";
 import { FiHome, FiMail, FiMenu, FiShoppingBag, FiUsers } from "react-icons/fi";
+import useCart from "../Hooks/useCart";
 const DashBoard = () => {
+  const [cart]= useCart();
   return (
     <div className="drawer drawer-mobile ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -35,7 +37,9 @@ const DashBoard = () => {
           <li>
             <NavLink to='allusers'><FiUsers/>All users</NavLink>
           </li>
-          <li>
+          <li> <div className="t-0 absolute left-3">
+    <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">+{cart?.length||0}</p>
+  </div>
             <NavLink to='mycart'><BsCart4/>My Cart </NavLink>
           </li>
           <div className="divider"></div> 
