@@ -6,11 +6,13 @@ import { GiForkKnifeSpoon, GiHomeGarage } from "react-icons/gi";
 import { BsJournalBookmark } from "react-icons/bs";
 import {  FiHome, FiMail, FiMenu, FiShoppingBag, FiUsers } from "react-icons/fi";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const DashBoard = () => {
   const [cart]= useCart();
   
-  const isAdmin = (true);
+  // const isAdmin = (true);
+  const [isAdmin]= useAdmin();
 
   return (
     <div className="drawer drawer-mobile ">
