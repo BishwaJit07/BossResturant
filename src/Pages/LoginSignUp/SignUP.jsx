@@ -147,7 +147,7 @@ const SignUP = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 16,
-                  pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                  
                 })}
                 className="input input-bordered"
               />

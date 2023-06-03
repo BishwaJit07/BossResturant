@@ -63,7 +63,7 @@ const Header = () => {
   </div>
   <div className="navbar-end">
   <div className="avatar">
-  <div className="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+  <div className="rounded-full ring ring-primary h-10 w-10 ring-offset-base-100 ring-offset-2">
     <img src={user?.photoURL} />
   </div>
 </div>
