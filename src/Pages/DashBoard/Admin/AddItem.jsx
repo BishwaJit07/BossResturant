@@ -1,13 +1,52 @@
 
 import SecTitle from '../../Home/SecTitle';
 import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+
+
+const img_HostingToken= import.meta.env.VITE_Img_Upload_token;
+
 
 const AddItem = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const [axiosSecure]= useAxiosSecure();
+   
+  const img_hosting_url =`https://api.imgbb.com/1/upload?key=${img_HostingToken}`
+
+    const { register, handleSubmit,reset, formState: { errors } } = useForm();
     const onSubmit = data =>
      {
         
-        console.log(data)
+       const fromData = new FormData();
+       fromData.append('image',data.image[0])
+
+       fetch(img_hosting_url,{
+        method: 'POST',
+        body: fromData
+       })
+       .then(res=> res.json())
+       .then(imgResponse=>{
+        if(imgResponse.success){
+            const imgURL = imgResponse.data.display_url;
+            const {name,price,category,recipe} = data;
+            const newItem = {name,price:parseFloat(price),category,recipe, image:imgURL}
+            console.log(newItem);
+            axiosSecure.post('/menu',newItem)
+            .then(data=>{
+              console.log('after posting new item', data.data);
+              if(data.data.insertedId){
+                reset(),
+                Swal.fire(
+                  'Good job!',
+                  'Item Addeded!',
+                  'success'
+                )
+              }
+            })
+        }
+        console.log(imgResponse);
+       })
     };
 
     return (
@@ -29,13 +68,14 @@ const AddItem = () => {
     <span className="label-text">Category</span>
     
   </label>
-  <select className="select select-bordered" {...register("category", { required: true })}>
-    <option disabled selected>Pick one</option>
+  <select defaultValue={"Pick One"} className="select select-bordered" {...register("category", { required: true })}>
+    <option disabled >Pick One</option>
     <option>Salads</option>
     <option>Pizza</option>
     <option>Soups</option>
     <option>Desserts</option>
     <option>Drinks</option>
+    <option>Others</option>
   </select>
  
 </div>
