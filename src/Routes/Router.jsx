@@ -9,6 +9,7 @@ import AddItem from "../Pages/DashBoard/Admin/AddItem";
 import AllUsers from "../Pages/DashBoard/Admin/AllUsers";
 import ManageItem from "../Pages/DashBoard/Admin/ManageItem";
 import MyCart from "../Pages/DashBoard/MyCart";
+import Payment from "../Pages/DashBoard/Payment";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/LoginSignUp/LOgin";
 import SignUP from "../Pages/LoginSignUp/SignUP";
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
         {
           path: 'additem',
           element:<AdminRoute><AddItem/></AdminRoute>
+        },
+        {
+          path: 'payhistory',
+          element: <Payment/>
         }
       ]
     }

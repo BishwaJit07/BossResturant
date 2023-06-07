@@ -5,14 +5,14 @@ import { useContext } from 'react';
 import { AuthContext } from '../Provider/Authprovider';
 
 
+const axiosSecure = axios.create({
+  baseURL: 'http://localhost:5000', 
+});
+
 
 const useAxiosSecure = () => {
   const { logOut } = useContext(AuthContext); 
   const navigate = useNavigate(); 
-
-  const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000', 
-  });
 
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {

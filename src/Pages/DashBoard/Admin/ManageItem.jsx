@@ -11,6 +11,10 @@ const ManageItem = () => {
 
   const [axiosSecure] = useAxiosSecure();
 
+ 
+
+
+
   const handleDelete = item => {
     Swal.fire({
       title: "Are you sure?",
@@ -38,6 +42,9 @@ const ManageItem = () => {
 
         //           }
         //       })
+       
+          
+
         axiosSecure.delete(`/menu/${item._id}`)
         .then(res => {
             console.log('deleted res', res.data);
@@ -49,10 +56,11 @@ const ManageItem = () => {
                     'success'
                 )
           }
-          
-
          
         });
+
+
+
       }
     });
   };
@@ -75,7 +83,7 @@ const ManageItem = () => {
         </thead>
         <tbody>
           {/* row 1 */}
-          {Array.isArray(menu) &&
+          {
             menu.map((item, index) => (
               <tr key={item._id}>
                 <th>{index + 1}</th>
@@ -94,7 +102,7 @@ const ManageItem = () => {
                 <td>
                   <p className="font-bold">{item.name}</p>
                 </td>
-                <td>${item.price}</td>
+                <td>${item._id}</td>
 
                 <td className="btn  bg-[#D1A054] rounded-xl text-white text-2xl ">
                   <BiCalendarEdit />
