@@ -6,8 +6,10 @@ import {
 import DashBoard from "../LayOut/DashBoard";
 import Main from "../LayOut/Main";
 import AddItem from "../Pages/DashBoard/Admin/AddItem";
+import AdminHome from "../Pages/DashBoard/Admin/AdminHome";
 import AllUsers from "../Pages/DashBoard/Admin/AllUsers";
 import ManageItem from "../Pages/DashBoard/Admin/ManageItem";
+
 import MyCart from "../Pages/DashBoard/MyCart";
 import Payment from "../Pages/DashBoard/Payment";
 import Home from "../Pages/Home/Home";
@@ -54,14 +56,25 @@ const router = createBrowserRouter([
 
       ],
     },
+    
     {
       path:'dashboard',
       element:<PrivateRoute><DashBoard/></PrivateRoute>,
       children:[
         {
+          path:'adminhome',
+          element: <AdminRoute>
+            <AdminHome/>
+          </AdminRoute>
+        },
+
+        {
           path: 'mycart',
           element: <PrivateRoute><MyCart/></PrivateRoute> 
         },
+
+       
+
         {
           path: 'allusers',
           element: <AdminRoute><AllUsers/></AdminRoute> 
@@ -77,6 +90,7 @@ const router = createBrowserRouter([
           path: 'additem',
           element:<AdminRoute><AddItem/></AdminRoute>
         },
+        
         {
           path: 'payhistory',
           element: <Payment/>

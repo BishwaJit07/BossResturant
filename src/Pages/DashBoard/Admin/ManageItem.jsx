@@ -26,25 +26,7 @@ const ManageItem = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        //   fetch(`http://localhost:5000/menu/${item._id}`,   {
-        //       method: 'DELETE'
-        //   })
-
-        //       .then(res => res.json())
-        //       .then(data => {
-        //           if (data.deletedCount > 0) {
-        //               refetch();
-        //               Swal.fire(
-        //                   'Deleted!',
-        //                   'Your file has been deleted.',
-        //                   'success'
-        //               )
-
-        //           }
-        //       })
-       
-          
-
+     
         axiosSecure.delete(`/menu/${item._id}`)
         .then(res => {
             console.log('deleted res', res.data);
